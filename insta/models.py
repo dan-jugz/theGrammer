@@ -26,3 +26,28 @@ class Image(models.Model):
     def save_img(self):
         # method to save an image
         self.save()
+
+
+    @classmethod
+    def get_imgs(cls):
+        # method that returns all photos in the db   
+        imgs = cls.objects.order_by('date_posted')
+        return imgs 
+
+
+    @classmethod
+    def get_img_by_id(cls,id):
+        #  method to fetch an image 
+        try:
+            img=Image.objects.get(id=id)
+            
+        except ObjectDoesNotExist:
+             raise Http404()
+             assert False
+        return img 
+
+
+    @classmethod
+    def delete_img(cls,img_id):
+        # method to delete an image
+        img=cls.objects.get(pk=img_id).delete()
