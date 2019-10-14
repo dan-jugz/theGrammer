@@ -1,4 +1,53 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<p>this is your homepage</p>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+      {% for post in posts %}
+      <div class="card mb-3">
+        <div class="card-header">
+          <img src="{{post.author.profile.profile_photo.url}}" class="rounded-circle" alt="">
+          <div class="post-header">
+             <div class="post-data">
+                <h5 class="card-title">
+                    <a href="{% url 'user-profile' post.author.id %}">{{post.author.username}}</a>
+                  </h5>
+                  <small class="text-muted">{{post.date_posted |date:"F,y d"}}</small>
+             </div>
+          </div>
+        </div>
+        <img src="{{post.poster.url}}" class="card-img-top">
+          <div class="card-footer text-muted">
+              <h2 class="post-title text-center">
+                  <a href="{% url 'post-detail' post.id %}">
+                      {{post.img_name}}</a>
+                </h2>
+            <p> {% autoescape on %}
+                {{post.img_caption| safe|truncatechars:80}}
+               {% endautoescape %}
+              </p>
+              <div class="insta-btns">
+                <a href=""><i class="fa fa-heart-o fa-2x" id="fa{{post.id}}"></i></a>
+                <a href=""><i class="fa fa-comments-o fa-2x"></i></a>
+              </div>
+
+              <div class="comment-form">
+                  <form action="" method="POST">
+                      {% csrf_token %}
+                      <fieldset class="form-group">
+                          {{form | crispy}}
+                      </fieldset>
+                  </form>
+
+              </div>
+        </div>
+    </div>
+
+  {% endfor %}
+
+  </div>
+  <div class="col-md-2"></div>
+</div>
+   
 {% endblock content %}
