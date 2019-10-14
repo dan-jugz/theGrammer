@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from tinymce.models import HTMLField
 # Create your models here.
 class tags(models.Model):
     #tags to bind to photos
@@ -13,7 +13,7 @@ class tags(models.Model):
 
 class Image(models.Model):
     img_name=models.CharField(max_length=50)
-    img_caption=models.CharField(max_length=100)
+    img_caption=HTMLField()
     poster=models.ImageField(upload_to='posters/',default='')
     date_posted=models.DateTimeField(auto_now_add=True)
     last_modified=models.DateTimeField(default=timezone.now)
