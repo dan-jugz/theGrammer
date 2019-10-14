@@ -23,3 +23,12 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model=User
         fields=['username','email']    
+
+
+# update user profile image
+class ProfileUpdateForm(forms.ModelForm):
+    
+    class Meta:
+        model=Profile
+        fields=['profile_photo','bio']
+
