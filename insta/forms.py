@@ -12,3 +12,10 @@ class AddTagsToPost(forms.ModelForm):
     class Meta:
         model=tags
         fields=['tag_name'] 
+
+
+# form to create a comment
+class NewComment(forms.ModelForm):
+    class Meta:
+        model=Comment
+        fields=['comment_content']        
