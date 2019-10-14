@@ -56,7 +56,7 @@ class Image(models.Model):
         # method to delete an image
         img=cls.objects.get(pk=img_id).delete()
 
-class Comments(models.Model):
+class Comment(models.Model):
     image=models.ForeignKey(Image,on_delete=models.CASCADE),
     comment_owner=models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE)
     comment_content=models.CharField(max_length=300,blank=True)
