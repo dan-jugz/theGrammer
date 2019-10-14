@@ -3,7 +3,38 @@
 {% block content %}
     <div class="row">
         <div class="col-md-2"></div>
-        
+        <div class="col-md-8 ">
+                <div class="card mb-3 profile "> 
+                        <div class="card-body profile">
+                          <div class="card-img">
+                            <img src="{{user.profile.profile_photo.url}}" class="rounded-circle" alt="">
+                          </div>
+                          <div class="card-info pl-2">
+                            <div class="user-utils mt-2">
+                                <h5 class="card-title">
+                                    {{user.username}}
+                                  </h5>
+                                
+                            </div>
+                            <div class="user-info mt-2">
+                              Posts:100
+                            </div>
+                            <div class="user-details mt-2">
+                              <ul class="list-unstyled">
+                                <li>{{user.username}}</li>
+                                <li> {{user.profile.bio}}</li>
+                                <li></li>
+                              </ul>
+                            </div>
+      
+                          </div>
+                        </div>
+                        <!-- card-body -->
+                  
+              </div>
+    
+            <!-- start images div here -->
+        </div>
         <div class="col-md-2"></div>
     </div>
 
