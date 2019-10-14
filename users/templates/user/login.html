@@ -1,0 +1,24 @@
+{% extends 'insta/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="" method='POST'>
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Sign In</legend>
+                    {{form | crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" type="submit">Login</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">Need and Account Account? <a href="{% url 'register' %}" class="ml-2">Register Today</a></small>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+{% endblock content %}
