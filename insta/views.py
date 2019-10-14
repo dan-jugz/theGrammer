@@ -50,7 +50,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         declare fields in the model to be affected
     '''
     model=Image
-    template_name='insta/post-update.html'
+    template_name='insta/post_update.html'
     fields=['img_name','img_caption','poster','last_modified']
 
     def form_valid(self,form):
