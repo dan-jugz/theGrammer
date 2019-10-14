@@ -42,6 +42,27 @@ def newInstaPost(request):
     return render(request,'insta/new_post.html',{'form':form,'tagForm':tagForm})
 
 
+class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    '''
+    class view method to update the post form
+        declare the model to be affected
+        declare the template to be used
+        declare fields in the model to be affected
+    '''
+    model=Image
+    template_name='insta/post-update.html'
+    fields=['img_name','img_caption','poster','last_modified']
+
+    def form_valid(self,form):
+        form.instance.author=self.request.user
+        return super().form_valid(form)
+
+        # check to see if the current user is the owner of the post
+    def test_func(self):
+        post=self.get_object()
+        return self.request.user==post.author
+
+
 
 def search_results(request):
     # view function that fetches posts based on search terms
