@@ -1,6 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse,Http404
 from .models import Image
+from django.views.generic import UpdateView,DeleteView
+from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 
 # Create your views here.
 @login_required
