@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse,Http404
 from .models import Image
+from .forms import NewInstaPost,AddTagsToPost,NewComment
 from django.views.generic import UpdateView,DeleteView
 from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 
@@ -82,6 +83,14 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
             
         post=self.get_object()
         return self.request.user==post.author
+
+
+# view function that leads to a single post    
+def postDetail(request,pk):    
+    img=Image.get_img_by_id(pk)
+    comments=Comment.get_comments(pk)
+   
+    return render(request,'insta/post_detail.html',{'post':img,'user':request.user,'comments':comments})
 
 
 def search_results(request):
