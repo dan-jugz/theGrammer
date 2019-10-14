@@ -1,0 +1,14 @@
+:root{
+    --bg-color:#fafafa;
+    --text-color:#0000;
+    --floral:floralwhite;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body,html{
+    background: var(--bg-color) !important;
+    color: #333;
+}

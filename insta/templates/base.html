@@ -6,15 +6,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% if title %}
+    <title>Insta{{title}}</title>
+    {% else %}
+    <title>Pale Instagram </title>
+    {% endif %}
     {% block styles %}
         {% bootstrap_css%}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/insta.css'%}">
     {% endblock styles %}
-    <title>Pale Instagram </title>
+
 </head>
 <body>
     {% include 'navbar.html'%}
     {% block content %}
 
     {% endblock content %}  
+
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% bootstrap_javascript%}
+    <script src="{% static 'js/masonry.js'%}"></script> 
+    <script src="{% static 'js/imageLoaded.js' %}"></script> 
+    <script src="{% static 'js/insta.js'%}"></script>
+    
+    {% endblock scripts %}
 </body>
 </html>
