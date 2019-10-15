@@ -140,7 +140,7 @@ MEDIA_URL='/media/'
 CRISPY_TEMPLATE_PACK='bootstrap4'
 
 # hijacking django and redirecting user to the homepage
-LOGIN_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL='instaHome'
 LOGIN_URL='login'
 
 TINYMCE_JS_URL = os.path.join(STATIC_URL, 'tinymce/js/tinymce/tinymce.min.js')
