@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'insta',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,8 +80,10 @@ WSGI_APPLICATION = 'theGram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'thegram',
+        'USER':'daniel',
+        'PASSWORD':'watchlist',
     }
 }
 
@@ -109,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -122,3 +125,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Directory to save our uploaded files
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+
+
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
+# hijacking django and redirecting user to the homepage
+LOGIN_REDIRECT_URL='/'
+LOGIN_URL='login'
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, 'tinymce/js/tinymce/tinymce.min.js')
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins' :"table, spellchecker, paste, searchreplace",
+    'theme' : "advanced",
+    'cleanup_on_startup ':True ,
+    'custom_undo_redo_levels':10 ,
+}
