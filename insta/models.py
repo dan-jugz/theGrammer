@@ -28,35 +28,47 @@ class Image(models.Model):
     def __str__(self):
         return f'Image{self.img_name}--{self.img_caption}'
 
-
+    # method to save an image
     def save_img(self):
-        # method to save an image
         self.save()
 
+    # method to delete an image
+    @classmethod
+    def delete_img(cls,img_id):
+        img=cls.objects.get(pk=img_id).delete()
+        
+    # method to update an image caption
+    @classmethod
+    def update_caption(cls,img_id,new_caption):
+        img=cls.objects.get(pk=img_id).update(img_caption=new_caption)
+        img.save()
+        
+    # method that returns photos based on a search query
+    @classmethod
+    def search(cls,search_term):
+        imgs=cls.objects.filter(Q(img_name__icontains=search_term) |Q(author__username__icontains=search_term)  | Q(img_caption__icontains=search_term)  | Q(tags__tag_name__icontains=search_term))
+        return imgs
 
+
+    # method that returns all photos in the db   
     @classmethod
     def get_imgs(cls):
-        # method that returns all photos in the db   
         imgs = cls.objects.order_by('date_posted')
         return imgs 
 
 
+    #  method to fetch an image 
     @classmethod
     def get_img_by_id(cls,id):
-        #  method to fetch an image 
         try:
             img=Image.objects.get(id=id)
             
         except ObjectDoesNotExist:
              raise Http404()
              assert False
+
         return img 
 
-
-    @classmethod
-    def delete_img(cls,img_id):
-        # method to delete an image
-        img=cls.objects.get(pk=img_id).delete()
 
 class Comment(models.Model):
     image=models.ForeignKey(Image,on_delete=models.CASCADE),
@@ -66,11 +78,23 @@ class Comment(models.Model):
     def save_comment(self):
         self.save()
 
+    # method to fetch all comments associated with a given img
+    @classmethod
+    def get_comments(cls,img_id):
+        comments=cls.objects.filter(pk=img_id).all()
+        return comments
+        
+
+    # method to delete a comment
     @classmethod
     def delete_comment(cls,comment_id):
-        # method to delete a comment
         comment=cls.objects.get(pk=comment_id)
         comment.delete()    
 
+    def __str__(self):
+        return self.comment_content  
 
-
+# models to create likes to bind to photos
+class Like(models.Model):
+    liker=models.ForeignKey(User,on_delete=models.CASCADE)
+    image=models.ForeignKey(Image,on_delete=models.CASCADE)
