@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Comment,Image,tags
+from .models import Comment,Image,tags,Like
 
 # Register your models here.
 class ImageAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Comment)
 admin.site.register(Image,ImageAdmin)
 admin.site.register(tags)
+admin.site.register(Like)
