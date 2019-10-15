@@ -1,0 +1,1 @@
+web: gunicorn theGram.wsgi --log-file -
