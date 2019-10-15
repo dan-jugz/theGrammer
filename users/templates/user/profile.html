@@ -1,0 +1,114 @@
+{% extends 'insta/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 border-bottom mb-4">
+                
+            <div class="card mb-3 profile "> 
+                  <div class="card-body profile">
+                    <div class="card-img">
+                      <img src="{{user.profile.profile_photo.url}}" class="rounded-circle" alt="">
+                    </div>
+                    <div class="card-info pl-2">
+                      <div class="user-utils mt-2">
+                          <h5 class="card-title">
+                              {{user.username}}
+                            </h5>
+                            <a class="btn btn-sm btn-outline-secondary" data-toggle='modal' data-target='#profileModal'>Edit Profile</a>
+                      </div>
+                      <div class="user-info mt-2">
+                        Posts:100
+                      </div>
+                      <div class="user-details mt-2">
+                        <ul class="list-unstyled">
+                          <li>{{user.username}}</li>
+                          <li> {{user.profile.bio}}</li>
+                          <li></li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- card-body -->
+            
+        </div>
+
+
+        <div class="col-md-2"></div>
+    </div>
+
+    <!-- modal update form -->
+    <div class="modal" id="profileModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Update Profile</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                        <form action="" method='POST' enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Profile Info</legend>
+                            {{usrForm | crispy}}
+                            {{profForm | crispy}}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-primary" type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+    <!-- end modal update -->
+
+
+    <div class="row user posts">
+
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <!-- displaying photos -->
+      <section class="masonry-grid" id="user-posts">
+          <div class="grid">
+            <div class="grid-sizer"></div>
+            {% if posts %}
+            {% for post in posts %}
+            <!-- Looping through photos   -->
+
+            <div class="grid-item">
+                <img src="{{post.poster.url}}" class="img-responsive"alt="" srcset="">
+                <div class="content-slide-up">
+                  <p>{{ post.img_name }}</p>
+                  <hr class="underline">
+                </div>
+                <div class="overlay-slide-down"></div>
+              </div>
+      
+          {% endfor %}   
+        </div>
+      </section>
+      
+      </div>
+      <div class="col-md-2"></div>
+      
+      
+      
+      {% else %}
+      <div class="row">
+        <h2 class="text-center">There No photos</h2>
+      </div>
+      {% endif %}
+  
+   
+
+    
+
+{% endblock content %}
