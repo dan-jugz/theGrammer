@@ -1,4 +1,51 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block content %}
-<p>{{message}}searching ...</p>
+<div class="row">
+        {% if posts%}
+          <h2>Found {{ posts|length }} of searched term {{message}}</h2>
+        {% else %}
+          <h2> Found 0 posts for the search term {{message}}</h2>
+        {% endif %}
+    
+      </div>
+    
+      <div class="row">
+      {% if posts %}
+      {% for post in posts %}
+      <div class="card mb-3">
+        <div class="card-header">
+          <img src="{{post.author.profile.profile_photo.url}}" class="rounded-circle" alt="">
+          <div class="post-header">
+             <div class="post-data">
+                <h5 class="card-title">
+                    <a href="{% url 'user-profile' post.author.id %}">{{post.author.username}}</a>
+                  </h5>
+                  <small class="text-muted">{{post.date_posted |date:"F,y d"}}</small>
+             </div>
+          </div>
+        </div>
+        <img src="{{post.poster.url}}" class="card-img-top">
+          <div class="card-footer text-muted">
+              <h2 class="post-title text-center">
+                  <a href="{% url 'post-detail' post.id %}">
+                      {{post.img_name}}</a>
+                </h2>
+            <p> {% autoescape on %}
+                {{post.img_caption| safe|truncatechars:80}}
+               {% endautoescape %}
+              </p>
+
+              <div class="insta-btns">
+                <a href=""><i class="fa fa-heart-o fa-2x"></i></a>
+                <a href=""><i class="fa fa-comments-o fa-2x"></i></a>
+              </div>
+  
+        </div>
+    </div>
+  
+  {% endfor %}
+
+      {% endif %}
+      </div>
+
 {% endblock content %}

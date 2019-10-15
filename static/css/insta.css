@@ -12,3 +12,28 @@ body,html{
     background: var(--bg-color) !important;
     color: #333;
 }
+i.fa{
+    color:#000;
+}
+/* navbar */
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.sticky-top{
+    background-color: #fff !important;
+}
+
+.bg-light{
+    background-color: #fff !important;
+}
+
+nav a.navbar-brand{
+    border-right:2px solid #000;
+    padding-right: 14px;
+}
+
+ul.navbar-nav a.nav-item >i.fa{
+    padding: 0 8px;
+}
+
+ul.navbar-nav a.nav-item.nav-link{
+    color: #222 !important;
+}
+
