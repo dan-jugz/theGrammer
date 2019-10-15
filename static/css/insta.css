@@ -15,7 +15,7 @@ body,html{
 i.fa{
     color:#000;
 }
-/* navbar */
+/* ===navbar=== */
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.sticky-top{
     background-color: #fff !important;
 }
@@ -36,4 +36,206 @@ ul.navbar-nav a.nav-item >i.fa{
 ul.navbar-nav a.nav-item.nav-link{
     color: #222 !important;
 }
+/* ==homepage styling== */
+.card-header{
+    display: flex;
+    background: #fff !important;
+    
+}
+.card-header > img{
+    height:60px;
+    width:60px;
+    margin-right:16px;
+    border:1px solid #ddd;
+    margin-bottom: 4px;
+    position: relative;
+}
 
+.post-header{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.post-user-btn{
+    margin-left: 20px;
+}
+
+
+
+.card-header .post-data{
+    padding-bottom: 1px;
+    margin-bottom: 5px;
+}
+
+.post-data h5.card-title > a{
+    text-transform: capitalize;
+    margin-left: 4px;
+    padding-right: 4px;
+    color:#222;
+}
+
+
+.post-data .card-title > a:hover{
+   text-decoration: aqua;
+}
+
+.post-title a {
+    color:#000 !important;
+    text-transform: capitalize;
+    font-size: 23px;
+    line-height: 28px;
+    text-shadow: 1px 1px 1px #222;
+}
+
+  .card-footer{
+      background: #fff !important;
+  }
+
+  .insta-btns a{
+    display: inline-block;
+    margin:0 12px;
+    
+  }
+
+  .insta-btns a >i.fa{
+    color:#333;
+  }
+
+/* =Post detail= */
+
+.post-comment-body{
+    display:flex;
+  }
+  
+  .post-comment-body > img{
+    height:60px;
+    width:60px;
+    margin-right:16px;
+    border:1px solid #ddd;
+    margin-bottom: 4px;
+    position: relative;
+  }
+  
+  .post-comment-header > .post-comment-data{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  /* =profile=*/
+
+  .card-body.profile{
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(60px,1fr));
+      
+  }
+
+  .card-body >.card-img > img{
+    height:150px;
+    width:150px;
+    margin-right:19px;
+    border:1px solid #ddd;
+
+}
+
+.card-body .card-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info >.user-utils{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.user-utils h5{
+    padding-right: 8px;
+}
+
+.card-info .user-details{
+    display: flex;
+    flex-direction: column;
+}
+
+/* ====the masonry grid==== */
+section.masonry-grid {
+    position: relative;
+  }
+  
+  .grid {
+    margin: 0 auto;
+  }
+  
+  /* clear fix */
+  .grid:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  
+  /* ---- .grid-item ---- */
+  
+  .grid-sizer,
+  .grid-item {
+    width: 33.333%;
+  }
+  
+  .grid-item {
+    float: left;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .grid-item img {
+    display: block;
+    width: 100%;
+  }
+  
+  .grid-item .content-slide-up {
+    position: absolute;
+    width: 100%;
+    padding: 10px;
+    bottom: -100px;
+    transition: 0.6s;
+    z-index: 1;
+  }
+  
+  .grid-item .content-slide-up > p {
+    text-align: center;
+    text-transform: uppercase;
+    color:#fff;
+    padding: 5px auto 0 auto;
+    font-size: 0.9rem;
+  }
+  
+  .content-slide-up > hr.underline {
+    border: 0.1px solid cyan;
+    background: cyan;
+    width: 100px;
+    height: 0.7px;
+    margin: 15px auto 0 auto;
+  }
+  
+  .grid-item .overlay-slide-down {
+    height: 0%;
+    width: 100%;
+    background:rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transition: 0.5s;
+  }
+  
+  .grid-item:hover .content-slide-up {
+    bottom: 25%;
+    opacity: 1;
+  }
+  
+  .grid-item:hover .overlay-slide-down {
+    opacity: 0.85;
+    height: 100%;
+  }
+  
+  a.grid-item-anchor:hover {
+    cursor: finger;
+  }
