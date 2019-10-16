@@ -1,8 +1,11 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
-from .models import Image
+from django.contrib import messages
+from .models import Image,Comment,Like
+from django.contrib.auth.decorators import login_required
 from .forms import NewInstaPost,AddTagsToPost,NewComment
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.views.generic import UpdateView,DeleteView
 from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 
@@ -21,7 +24,8 @@ def home(request):
         return redirect('instaHome')
     else:
         form=NewComment()
-        posts=Image.get_imgs()  
+
+    posts=Image.get_imgs()  
     return render(request,'insta/home.html',{'posts':posts})
 
 
@@ -35,6 +39,7 @@ def newInstaPost(request):
             img_name=form.cleaned_data.get('img_name')
             img=form.save(commit=False)
             img.author=current_user
+
             img.save()
             tagForm.save()
 
@@ -55,13 +60,13 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     '''
     model=Image
     template_name='insta/post_update.html'
-    fields=['img_name','img_caption','poster','last_modified']
+    fields=['img_name','img_caption','poster']
 
     def form_valid(self,form):
         form.instance.author=self.request.user
         return super().form_valid(form)
 
-        # check to see if the current user is the owner of the post
+    # check to see if the current user is the owner of the post
     def test_func(self):
         post=self.get_object()
         return self.request.user==post.author
@@ -78,8 +83,8 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     template_name='insta/post-confirm-delete.html'
     success_url='/'
 
+    # check to see if the current user is the owner of the post
     def test_func(self):
-        # check to see if the current user is the owner of the post
             
         post=self.get_object()
         return self.request.user==post.author
