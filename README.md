@@ -1,6 +1,6 @@
 # theGram
 
-### 30/08/2019
+### 11/10/2019
 
 ## By **[Daniel Njuguna](https://github.com/dan-jugz/theGram)**
 
@@ -72,7 +72,7 @@ As a user I would like:
 
 ## Known Bugs
 
-* does not show posts on upload
+* does not show posts on login
 
 ## Technologies Used
 
@@ -85,6 +85,7 @@ As a user I would like:
 * CSS
 * HTML
 * Heroku
+* font-awesome
 
 ### License
 
