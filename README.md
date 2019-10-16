@@ -72,7 +72,7 @@ As a user I would like:
 
 ## Known Bugs
 
-* Couple Bugs
+* does not show posts on upload
 
 ## Technologies Used
 
