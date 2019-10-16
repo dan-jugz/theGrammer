@@ -5,7 +5,7 @@ from django.db.models import Q
 from tinymce.models import HTMLField
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-
+from PIL import Image as Img
 from django.urls import reverse
 
 # Create your models here.
@@ -68,7 +68,7 @@ class Image(models.Model):
     @classmethod
     def get_img_by_id(cls,id):
         try:
-            
+
             img=Image.objects.get(id=id)
             
         except ObjectDoesNotExist:
@@ -106,3 +106,23 @@ class Comment(models.Model):
 class Like(models.Model):
     liker=models.ForeignKey(User,on_delete=models.CASCADE)
     image=models.ForeignKey(Image,on_delete=models.CASCADE)
+
+
+# one user can have one profile and one profile is associated with one user
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    bio=models.TextField(max_length=140,blank=True)
+    profile_photo=models.ImageField(upload_to='profile_pics',default='default_profile.png')
+
+    def __str__(self):
+        return f'{self.user.username}-Profile'
+
+    def save(self ,*args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+
+        img=Img.open(self.profile_photo.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size=(300,300)
+            img.thumbnail(output_size)
+            img.save(self.profile_photo.path)
