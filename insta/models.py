@@ -1,8 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.db.models import Q
 from tinymce.models import HTMLField
-
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
+from PIL import Image as Img
+from django.urls import reverse
 
 # Create your models here.
 class tags(models.Model):
@@ -20,9 +24,6 @@ class Image(models.Model):
     date_posted=models.DateTimeField(auto_now_add=True)
     last_modified=models.DateTimeField(default=timezone.now)
     uploaded_by = models.ForeignKey(User,on_delete=models.CASCADE, default='')
-    comments = models.CharField(max_length =1000, default="No comments yet")
-    likes = models.IntegerField(default=0)
-    liked = models.BooleanField(default=False)
     tags = models.ManyToManyField(tags)
 
     def __str__(self):
@@ -31,6 +32,12 @@ class Image(models.Model):
     # method to save an image
     def save_img(self):
         self.save()
+
+    # fix for the get absolute url error after using the class view to update the view
+    def get_absolute_url(self):
+            # creating a url for a model object **
+                
+            return reverse('post-detail',kwargs={'pk':self.pk})
 
     # method to delete an image
     @classmethod
@@ -61,6 +68,7 @@ class Image(models.Model):
     @classmethod
     def get_img_by_id(cls,id):
         try:
+
             img=Image.objects.get(id=id)
             
         except ObjectDoesNotExist:
@@ -98,3 +106,23 @@ class Comment(models.Model):
 class Like(models.Model):
     liker=models.ForeignKey(User,on_delete=models.CASCADE)
     image=models.ForeignKey(Image,on_delete=models.CASCADE)
+
+
+# one user can have one profile and one profile is associated with one user
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    bio=models.TextField(max_length=140,blank=True)
+    profile_photo=models.ImageField(upload_to='profile_pics',default='default_profile.png')
+
+    def __str__(self):
+        return f'{self.user.username}-Profile'
+
+    def save(self ,*args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+
+        img=Img.open(self.profile_photo.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size=(300,300)
+            img.thumbnail(output_size)
+            img.save(self.profile_photo.path)
